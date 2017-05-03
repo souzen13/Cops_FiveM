@@ -56,8 +56,8 @@ end
 function checkId(target)
 	local strResult = GetPlayerName(target).." ID Card : "
     TriggerEvent("es:getPlayerFromId", target, function(player)
-		local executed_query = MySQL:executeQuery("SELECT * FROM users WHERE user_id = '@username'", { ['@username'] = player.identifier, ['@jobid'] = player.job })
-		local result = MySQL:getResults(executed_query, { 'user_id', 'jobid' } )
+		local executed_query = MySQL:executeQuery("SELECT * FROM users WHERE user_id = '@identifier' AND jobid = '@jobid'", { ['@identifier'] = player.identifier, ['@jobid'] = player.job })
+		local result = MySQL:getResults(executed_query, , "player.identifier", "player.job" )
 		if (result) then
 				TriggerClientEvent('chatMessage', id, "", {0, 0, 200},  .. GetPlayerName(target) .. "'s ID")
 				TriggerClientEvent('chatMessage', id, "", {0, 0, 200}, "ID Number:  .. GetPlayerId(target) .. "")
