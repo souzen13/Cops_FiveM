@@ -68,6 +68,22 @@ AddEventHandler('police:checkInventory', function()
 	end
 end)
 
+RegisterNetEvent('police:checkId')
+AddEventHandler('police:checkId', function()
+	if(isInService) then
+		t, distance = GetClosestPlayer()
+		if(distance ~= -1 and distance < 1) then
+			TriggerServerEvent("police:targetCheckId", GetPlayerServerId(t))
+		else
+			TriggerEvent('chatMessage', 'SYSTEM', {255, 0, 0}, "No player near you !")
+		end
+	else
+		TriggerEvent('chatMessage', 'SYSTEM', {255, 0, 0}, "Please take your service first !")
+	end
+end)
+
+
+
 RegisterNetEvent('police:fines')
 AddEventHandler('police:fines', function(t, amount)
 	if(isInService) then
