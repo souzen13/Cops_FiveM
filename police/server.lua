@@ -52,6 +52,27 @@ function checkInventory(target)
 
 end
 
+
+function checkId(target)
+	local strResult = GetPlayerName(target).." ID Card : "
+    TriggerEvent("es:getPlayerFromId", target, function(player)
+		local executed_query = MySQL:executeQuery("SELECT * FROM users WHERE user_id = '@username'", { ['@username'] = player.identifier, ['@jobid'] = player.job })
+		local result = MySQL:getResults(executed_query, { 'user_id', 'jobid' } )
+		if (result) then
+				TriggerClientEvent('chatMessage', id, "", {0, 0, 200},  .. GetPlayerName(target) .. "'s ID")
+				TriggerClientEvent('chatMessage', id, "", {0, 0, 200}, "ID Number:  .. GetPlayerId(target) .. "")
+				TriggerClientEvent('chatMessage', id, "", {0, 0, 200}, "Name: ..GetPlayerName(target) .. "")
+				TriggerClientEvent('chatMessage', id, "", {0, 0, 200}, "Job:  .. player.job)
+				end
+			end
+		end
+	end)
+	
+	return strResult
+
+end
+
+
 RegisterServerEvent('police:checkIsCop')
 AddEventHandler('police:checkIsCop', function()
 	TriggerEvent("es:getPlayerFromId", source, function(user)
